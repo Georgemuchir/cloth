@@ -76,4 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize bag count and dropdown
   updateBagCount();
   updateBagDropdown();
+
+  // Toggle bag dropdown visibility
+  document.querySelector(".bag-link").addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    bagDropdown.style.display =
+      bagDropdown.style.display === "block" ? "none" : "block";
+  });
 });
