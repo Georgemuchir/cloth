@@ -5,80 +5,86 @@ document.addEventListener("DOMContentLoaded", () => {
   const bagItemsElement = document.getElementById("bag-items");
   const bagTotalElement = document.getElementById("bag-total");
 
-  // Calculate the initial bag count
-  let bagCount = bag.reduce((total, item) => total + item.quantity, 0);
-
-  // Update the bag count display
+  // Function to update the bag count display
   function updateBagCount() {
+    const totalItems = bag.reduce((total, item) => total + item.quantity, 0);
     if (bagCountElement) {
-      bagCountElement.textContent = bagCount;
+      bagCountElement.textContent = totalItems;
     }
   }
 
-  // Update the bag dropdown display
-  function updateBagDropdown() {
+  // Function to update the bag table
+  function updateBag() {
     if (!bagItemsElement || !bagTotalElement) return; // Ensure elements exist
     bagItemsElement.innerHTML = ""; // Clear the current list
     let total = 0;
 
-    // Loop through the bag array and display each item
     bag.forEach((item, index) => {
       const itemTotal = item.price * item.quantity;
       total += itemTotal;
 
-      // Create a list item for each product
-      const listItem = document.createElement("li");
-      listItem.innerHTML = `
-        ${item.name} (x${item.quantity}) - $${itemTotal.toFixed(2)}
-        <button data-index="${index}" class="remove-item">Remove</button>
+      // Create a table row for each item
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td><img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover;"></td>
+        <td>${item.name}</td>
+        <td>$${item.price.toFixed(2)}</td>
+        <td>${item.quantity}</td>
+        <td>$${itemTotal.toFixed(2)}</td>
+        <td><button class="remove-item" data-index="${index}" style="background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Remove</button></td>
       `;
-      bagItemsElement.appendChild(listItem);
+      bagItemsElement.appendChild(row);
     });
 
-    // Update the total price in the dropdown
+    // Update the total price
     bagTotalElement.textContent = `Total: $${total.toFixed(2)}`;
 
     // Add event listeners to remove buttons
     document.querySelectorAll(".remove-item").forEach((button) => {
       button.addEventListener("click", (e) => {
         const index = e.target.getAttribute("data-index");
-        bagCount -= bag[index].quantity;
-        bag.splice(index, 1); // Remove the item from the bag array
+        bag.splice(index, 1); // Remove the item from the bag
         localStorage.setItem("bag", JSON.stringify(bag)); // Update localStorage
-        updateBagCount(); // Update the bag count
-        updateBagDropdown(); // Update the dropdown
+        updateBag(); // Refresh the bag
+        updateBagCount(); // Refresh the bag count
       });
     });
   }
 
-  // Add to bag function
-  function addToBag(itemName, itemPrice) {
+  // Function to add an item to the bag
+  function addToBag(itemName, itemPrice, itemImage) {
+    console.log("Adding to bag:", { itemName, itemPrice, itemImage }); // Debug log
+
     const existingItem = bag.find((item) => item.name === itemName);
     if (existingItem) {
       existingItem.quantity += 1; // Increment quantity if the item already exists
     } else {
-      bag.push({ name: itemName, price: parseFloat(itemPrice), quantity: 1 }); // Add new item
+      bag.push({ name: itemName, price: parseFloat(itemPrice), image: itemImage, quantity: 1 }); // Add new item
     }
-    bagCount++;
+
     localStorage.setItem("bag", JSON.stringify(bag)); // Save the updated bag to localStorage
-    updateBagCount(); // Update the bag count
-    updateBagDropdown(); // Update the dropdown
+    updateBagCount(); // Update bag count
+    updateBag(); // Refresh the bag display
     alert(`${itemName} has been added to your bag.`);
   }
 
   // Add event listeners to "Add to Bag" buttons
-  const productCards = document.querySelectorAll(".product-card");
-  productCards.forEach((card) => {
+  document.querySelectorAll(".product-card").forEach((card) => {
     const addButton = card.querySelector(".add-to-bag");
+    const itemName = card.querySelector("h3").textContent;
+    const itemPrice = card.querySelector("p").textContent.replace("$", "");
+    const itemImage = card.querySelector("img").getAttribute("src");
 
-    addButton.addEventListener("click", () => {
-      const itemName = card.querySelector("h3").textContent;
-      const itemPrice = card.querySelector("p").textContent.replace("$", "");
-      addToBag(itemName, itemPrice);
-    });
+    console.log("Attaching event listener to:", { itemName, itemPrice, itemImage }); // Debug log
+
+    if (addButton) {
+      addButton.addEventListener("click", () => {
+        addToBag(itemName, itemPrice, itemImage);
+      });
+    }
   });
 
-  // Initialize bag count and dropdown
+  // Initialize the bag
   updateBagCount();
-  updateBagDropdown();
+  updateBag();
 });
