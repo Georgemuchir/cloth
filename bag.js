@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("bag", JSON.stringify(bag)); // Save the updated bag to localStorage
     updateBagCount(); // Update bag count
     updateBag(); // Refresh the bag display
-    alert(`${itemName} has been added to your bag.`);
+    // Removed the alert
   }
 
   // Add event listeners to "Add to Bag" buttons
