@@ -26,6 +26,12 @@
         <i class="fa-solid fa-bag-shopping"></i> Bag
         <span id="bag-count" class="bag-count">0</span>
       </a>
+      <!-- Bag Dropdown -->
+      <div id="bag-dropdown" style="display: none;">
+        <ul id="bag-items"></ul>
+        <p id="bag-total">Total: $0.00</p>
+        <button id="checkout-button">Checkout</button>
+      </div>
     </div>
   </header>
 
@@ -68,6 +74,9 @@
     <p>&copy; 2025 QuickThrift. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Updated script imports -->
+  <script src="admin.js"></script>
+  <script src="bag.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
