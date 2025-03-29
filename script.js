@@ -139,3 +139,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("QuickThrift website loaded!");
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const createAccountButton = document.getElementById("create-account-button");
+  const signUpForm = document.getElementById("sign-up-form");
+
+  // Add event listener to the "Create Account" button
+  createAccountButton.addEventListener("click", () => {
+    // Toggle the visibility of the Sign Up form
+    signUpForm.classList.toggle("hidden");
+
+    // Optionally, scroll to the Sign Up form when it becomes visible
+    if (!signUpForm.classList.contains("hidden")) {
+      signUpForm.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+});

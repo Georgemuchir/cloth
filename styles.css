@@ -1,18 +1,25 @@
 /* General Reset */
-body {
+body, h1, h2, p, ul, li, input, button, form {
   margin: 0;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  position: relative;
+  background-color: #333;
+  color: #fff;
 }
 
 .logo {
@@ -30,19 +37,28 @@ header {
 
 .nav a {
   text-decoration: none;
-  color: #333;
+  color: #fff;
   font-weight: bold;
 }
 
+.nav a:hover {
+  text-decoration: underline;
+}
+
+/* User Options */
 .user-options {
   position: relative;
 }
 
 .user-options a {
   text-decoration: none;
-  color: #333;
+  color: white; /* White text for Sign In / Sign Up and Bag links */
   margin-left: 15px;
-  position: relative;
+  font-weight: bold;
+}
+
+.user-options a:hover {
+  text-decoration: underline;
 }
 
 .bag-count {
@@ -61,6 +77,7 @@ header {
   align-items: center;
 }
 
+/* Categories Section */
 .categories {
   display: flex;
   justify-content: center;
@@ -76,6 +93,7 @@ header {
   font-weight: bold;
 }
 
+/* Product Grid */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -119,22 +137,18 @@ header {
   background-color: #555;
 }
 
+/* Footer */
 footer {
   text-align: center;
   padding: 10px 0;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
-  font-size: 14px;
-  color: #555;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
 }
 
 /* Dropdown Menu */
 #dropdown-toggle {
   cursor: pointer;
-}
-
-.dropdown.active {
-  display: block;
 }
 
 .dropdown {
@@ -148,6 +162,10 @@ footer {
   z-index: 1000;
 }
 
+.dropdown.active {
+  display: block;
+}
+
 .dropdown a {
   display: block;
   padding: 10px 15px;
@@ -159,226 +177,94 @@ footer {
   background-color: #f9f9f9;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav ul {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .categories {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .product-card {
-    padding: 10px;
-  }
-
-  .product-card h3 {
-    font-size: 14px;
-  }
-
-  .product-card p {
-    font-size: 12px;
-  }
-
-  .add-to-cart {
-    font-size: 14px;
-    padding: 8px 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .logo {
-    font-size: 20px;
-  }
-
-  .nav ul {
-    gap: 5px;
-  }
-
-  .categories {
-    gap: 5px;
-  }
-
-  .product-card h3 {
-    font-size: 12px;
-  }
-
-  .product-card p {
-    font-size: 10px;
-  }
-
-  .add-to-cart {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
-}/* General Reset */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  position: relative;
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.nav ul {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-  margin: 0;
-  padding: 0;
-}
-
-.nav a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-.user-options {
-  position: relative;
-}
-
-.user-options a {
-  text-decoration: none;
-  color: #333;
-  margin-left: 15px;
-  position: relative;
-}
-
-.bag-count {
-  position: absolute;
-  top: -5px;
-  right: -10px;
-  background-color: red;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.categories {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px 0;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd;
-}
-
-.category-link {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+/* Auth Section */
+.auth-section {
+  max-width: 800px;
+  margin: 50px auto;
   padding: 20px;
-}
-
-.product-card {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  text-align: center;
   background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.product-card img {
-  max-width: 100%;
-  border-radius: 5px;
+.auth-section h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #333;
 }
 
-.product-card h3 {
-  font-size: 16px;
-  margin: 10px 0;
+.auth-forms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
 }
 
-.product-card p {
-  font-size: 14px;
+.auth-form {
+  flex: 1 1 calc(50% - 10px);
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.auth-form h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
   color: #555;
 }
 
-.add-to-cart {
-  padding: 10px 15px;
+.auth-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.auth-form input:focus {
+  border-color: #333;
+  outline: none;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 10px;
   background-color: #333;
   color: #fff;
   border: none;
   border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
 }
 
-.add-to-cart:hover {
+.auth-button:hover {
   background-color: #555;
 }
 
-footer {
-  text-align: center;
-  padding: 10px 0;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
-  font-size: 14px;
-  color: #555;
-}
-
-/* Dropdown Menu */
-#dropdown-toggle {
-  cursor: pointer;
-}
-
-.dropdown.active {
-  display: block;
-}
-
-.dropdown {
+/* Hide the Sign Up form by default */
+.hidden {
   display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
 }
 
-.dropdown a {
-  display: block;
-  padding: 10px 15px;
-  text-decoration: none;
-  color: #333;
+/* Secondary button styling for "Create Account" */
+.secondary-button {
+  background-color: #555;
+  color: #fff;
+  margin-top: 10px;
 }
 
-.dropdown a:hover {
-  background-color: #f9f9f9;
+.secondary-button:hover {
+  background-color: #777;
 }
 
 /* Responsive Design */
@@ -414,6 +300,14 @@ footer {
   .add-to-cart {
     font-size: 14px;
     padding: 8px 10px;
+  }
+
+  .auth-forms {
+    flex-direction: column;
+  }
+
+  .auth-form {
+    flex: 1 1 100%;
   }
 }
 
