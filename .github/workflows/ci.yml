@@ -48,20 +48,3 @@ jobs:
       # Step 3: Run HTMLProofer
       - name: Check HTML
         run: htmlproofer ./ --allow-hash-href --file-ignore /node_modules/
-
-  deploy:
-    name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      # Step 1: Check out the code
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Step 2: Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
