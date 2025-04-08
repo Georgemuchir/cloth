@@ -88,3 +88,25 @@ document.addEventListener("DOMContentLoaded", () => {
   updateBagCount();
   updateBag();
 });
+// Select elements
+const bagItems = document.getElementById('bag-items');
+const bagTotal = document.getElementById('bag-total');
+const checkoutButton = document.getElementById('checkout-button');
+
+// Function to clear the bag
+function clearBag() {
+  localStorage.removeItem('bag'); // Clear bag data from localStorage
+  bagItems.innerHTML = ''; // Clear the table
+  bagTotal.textContent = '0.00'; // Reset total
+  alert('Thank you for your purchase! Your order has been placed.');
+}
+
+// Add event listener to the checkout button
+checkoutButton.addEventListener('click', () => {
+  if (bagItems.children.length === 0) {
+    alert('Your bag is empty. Add items before checking out.');
+  } else {
+    // Redirect to the checkout page
+    window.location.href = 'checkout.html';
+  }
+});
