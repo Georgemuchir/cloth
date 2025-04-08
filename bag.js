@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Retrieve the bag from localStorage or initialize it as an empty array
-  const bag = JSON.parse(localStorage.getItem("bag")) || [];
-  const bagCountElement = document.getElementById("bag-count");
   const bagItemsElement = document.getElementById("bag-items");
   const bagTotalElement = document.getElementById("bag-total");
+  const bagCountElement = document.getElementById("bag-count");
+  const checkoutButton = document.getElementById("checkout-button");
+
+  // Retrieve the bag from localStorage or initialize it as an empty array
+  const bag = JSON.parse(localStorage.getItem("bag")) || [];
 
   // Function to update the bag count display
   function updateBagCount() {
@@ -37,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Update the total price
-    bagTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+    bagTotalElement.textContent = `$${total.toFixed(2)}`;
 
     // Add event listeners to remove buttons
     document.querySelectorAll(".remove-item").forEach((button) => {
@@ -51,62 +53,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Function to add an item to the bag
-  function addToBag(itemName, itemPrice, itemImage) {
-    console.log("Adding to bag:", { itemName, itemPrice, itemImage }); // Debug log
-
-    const existingItem = bag.find((item) => item.name === itemName);
-    if (existingItem) {
-      existingItem.quantity += 1; // Increment quantity if the item already exists
-    } else {
-      bag.push({ name: itemName, price: parseFloat(itemPrice), image: itemImage, quantity: 1 }); // Add new item
-    }
-
-    localStorage.setItem("bag", JSON.stringify(bag)); // Save the updated bag to localStorage
-    updateBagCount(); // Update bag count
-    updateBag(); // Refresh the bag display
-    // Removed the alert
+  // Add event listener to the checkout button
+  if (checkoutButton) {
+    checkoutButton.addEventListener("click", () => {
+      if (bag.length === 0) {
+        alert("Your bag is empty. Add items before checking out.");
+      } else {
+        window.location.href = "checkout.html"; // Redirect to the checkout page
+      }
+    });
   }
-
-  // Add event listeners to "Add to Bag" buttons
-  document.querySelectorAll(".product-card").forEach((card) => {
-    const addButton = card.querySelector(".add-to-bag");
-    const itemName = card.querySelector("h3").textContent;
-    const itemPrice = card.querySelector("p").textContent.replace("$", "");
-    const itemImage = card.querySelector("img").getAttribute("src");
-
-    console.log("Attaching event listener to:", { itemName, itemPrice, itemImage }); // Debug log
-
-    if (addButton) {
-      addButton.addEventListener("click", () => {
-        addToBag(itemName, itemPrice, itemImage);
-      });
-    }
-  });
 
   // Initialize the bag
   updateBagCount();
   updateBag();
-});
-// Select elements
-const bagItems = document.getElementById('bag-items');
-const bagTotal = document.getElementById('bag-total');
-const checkoutButton = document.getElementById('checkout-button');
-
-// Function to clear the bag
-function clearBag() {
-  localStorage.removeItem('bag'); // Clear bag data from localStorage
-  bagItems.innerHTML = ''; // Clear the table
-  bagTotal.textContent = '0.00'; // Reset total
-  alert('Thank you for your purchase! Your order has been placed.');
-}
-
-// Add event listener to the checkout button
-checkoutButton.addEventListener('click', () => {
-  if (bagItems.children.length === 0) {
-    alert('Your bag is empty. Add items before checking out.');
-  } else {
-    // Redirect to the checkout page
-    window.location.href = 'checkout.html';
-  }
 });
