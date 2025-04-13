@@ -1,84 +1,70 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Retrieve the bag from localStorage or initialize it as an empty array
-  const bag = JSON.parse(localStorage.getItem("bag")) || [];
-  const bagCountElement = document.getElementById("bag-count");
   const bagItemsElement = document.getElementById("bag-items");
   const bagTotalElement = document.getElementById("bag-total");
+  const bagCountElement = document.getElementById("bag-count");
+  const checkoutButton = document.getElementById("checkout-button");
 
-  // Calculate the initial bag count
-  let bagCount = bag.reduce((total, item) => total + item.quantity, 0);
+  // Retrieve the bag from localStorage or initialize it as an empty array
+  const bag = JSON.parse(localStorage.getItem("bag")) || [];
 
-  // Update the bag count display
+  // Function to update the bag count display
   function updateBagCount() {
+    const totalItems = bag.reduce((total, item) => total + item.quantity, 0);
     if (bagCountElement) {
-      bagCountElement.textContent = bagCount;
+      bagCountElement.textContent = totalItems;
     }
   }
 
-  // Update the bag dropdown display
-  function updateBagDropdown() {
+  // Function to update the bag table
+  function updateBag() {
     if (!bagItemsElement || !bagTotalElement) return; // Ensure elements exist
     bagItemsElement.innerHTML = ""; // Clear the current list
     let total = 0;
 
-    // Loop through the bag array and display each item
     bag.forEach((item, index) => {
       const itemTotal = item.price * item.quantity;
       total += itemTotal;
 
-      // Create a list item for each product
-      const listItem = document.createElement("li");
-      listItem.innerHTML = `
-        ${item.name} (x${item.quantity}) - $${itemTotal.toFixed(2)}
-        <button data-index="${index}" class="remove-item">Remove</button>
+      // Create a table row for each item
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td><img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover;"></td>
+        <td>${item.name}</td>
+        <td>$${item.price.toFixed(2)}</td>
+        <td>${item.quantity}</td>
+        <td>$${itemTotal.toFixed(2)}</td>
+        <td><button class="remove-item" data-index="${index}" style="background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Remove</button></td>
       `;
-      bagItemsElement.appendChild(listItem);
+      bagItemsElement.appendChild(row);
     });
 
-    // Update the total price in the dropdown
-    bagTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+    // Update the total price
+    bagTotalElement.textContent = `$${total.toFixed(2)}`;
 
     // Add event listeners to remove buttons
     document.querySelectorAll(".remove-item").forEach((button) => {
       button.addEventListener("click", (e) => {
         const index = e.target.getAttribute("data-index");
-        bagCount -= bag[index].quantity;
-        bag.splice(index, 1); // Remove the item from the bag array
+        bag.splice(index, 1); // Remove the item from the bag
         localStorage.setItem("bag", JSON.stringify(bag)); // Update localStorage
-        updateBagCount(); // Update the bag count
-        updateBagDropdown(); // Update the dropdown
+        updateBag(); // Refresh the bag
+        updateBagCount(); // Refresh the bag count
       });
     });
   }
 
-  // Add to bag function
-  function addToBag(itemName, itemPrice) {
-    const existingItem = bag.find((item) => item.name === itemName);
-    if (existingItem) {
-      existingItem.quantity += 1; // Increment quantity if the item already exists
-    } else {
-      bag.push({ name: itemName, price: parseFloat(itemPrice), quantity: 1 }); // Add new item
-    }
-    bagCount++;
-    localStorage.setItem("bag", JSON.stringify(bag)); // Save the updated bag to localStorage
-    updateBagCount(); // Update the bag count
-    updateBagDropdown(); // Update the dropdown
-    alert(`${itemName} has been added to your bag.`);
+  // Add event listener to the checkout button
+  if (checkoutButton) {
+    checkoutButton.addEventListener("click", () => {
+      if (bag.length === 0) {
+        alert("Your bag is empty. Add items before checking out.");
+      } else {
+        window.location.href = "checkout.html"; // Redirect to the checkout page
+      }
+    });
   }
 
-  // Add event listeners to "Add to Bag" buttons
-  const productCards = document.querySelectorAll(".product-card");
-  productCards.forEach((card) => {
-    const addButton = card.querySelector(".add-to-bag");
-
-    addButton.addEventListener("click", () => {
-      const itemName = card.querySelector("h3").textContent;
-      const itemPrice = card.querySelector("p").textContent.replace("$", "");
-      addToBag(itemName, itemPrice);
-    });
-  });
-
-  // Initialize bag count and dropdown
+  // Initialize the bag
   updateBagCount();
-  updateBagDropdown();
+  updateBag();
 });

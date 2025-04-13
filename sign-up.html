@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In - QuickThrift</title>
+  <title>Sign Up - QuickThrift</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,17 +15,23 @@
 
   <main>
     <section class="auth-section">
-      <h1>Sign In to Your Account</h1>
-      <form id="sign-in-form" class="auth-form">
+      <h1>Create an Account</h1>
+      <form id="sign-up-form" class="auth-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-        <button type="submit" class="auth-button">Sign In</button>
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+
+        <button type="submit" class="auth-button">Sign Up</button>
       </form>
-      <p>Don't have an account? <a href="sign-up.html">Sign Up</a></p>
+      <p>Already have an account? <a href="sign-in.html">Sign In</a></p>
     </section>
   </main>
 
@@ -33,6 +39,6 @@
     <p>&copy; 2025 QuickThrift. All rights reserved.</p>
   </footer>
 
-  <script src="sign-in.js"></script>
+  <script src="sign-up.js"></script>
 </body>
 </html>

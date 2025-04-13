@@ -8,52 +8,59 @@
 </head>
 <body>
   <header class="header">
-    <div class="logo">QuickThrift</div>
+    <div class="logo">QuickThrift Admin</div>
     <nav class="nav">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="new-arrival.html">New Arrivals</a></li>
-        <li><a href="special-offer.html">Special Offers</a></li>
-        <li><a href="bestsellers.html">Bestsellers</a></li>
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="bag.html" class="nav-link">Bag</a></li>
       </ul>
     </nav>
   </header>
 
-  <section class="admin-section">
-    <h2>Admin Panel</h2>
-    <div class="admin-controls">
-      <h3>Manage Inventory</h3>
-      <form id="add-item-form">
-        <label for="item-name">Item Name:</label>
-        <input type="text" id="item-name" placeholder="Enter item name" required>
-        <label for="item-price">Price:</label>
-        <input type="number" id="item-price" placeholder="Enter item price" required>
-        <label for="item-quantity">Quantity:</label>
-        <input type="number" id="item-quantity" placeholder="Enter quantity" required>
-        <button type="submit">Add Item</button>
+  <main>
+    <section class="admin-section">
+      <h1>Admin Panel</h1>
+
+      <!-- Add Product Form -->
+      <form id="add-product-form" class="admin-form">
+        <h2>Add Product</h2>
+        <label for="product-name">Product Name</label>
+        <input type="text" id="product-name" name="product-name" placeholder="Enter product name" required>
+
+        <label for="product-price">Price</label>
+        <input type="number" id="product-price" name="product-price" placeholder="Enter product price" required>
+
+        <label for="product-image">Upload Image</label>
+        <input type="file" id="product-image" name="product-image" accept="image/*" required>
+
+        <button type="submit" class="admin-button">Add Product</button>
       </form>
 
-      <h3>Inventory List</h3>
-      <table id="inventory-table">
-        <thead>
-          <tr>
-            <th>Item Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Inventory items will be dynamically added here -->
-        </tbody>
-      </table>
-    </div>
-  </section>
+      <!-- Product Inventory Table -->
+      <div class="product-list">
+        <h2>Product Inventory</h2>
+        <table id="product-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Image</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="product-list">
+            <!-- Products will be dynamically populated here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 
   <footer class="footer">
     <p>&copy; 2025 QuickThrift. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Script -->
+  <script src="admin.js"></script>
 </body>
 </html>
