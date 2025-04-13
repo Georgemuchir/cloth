@@ -155,7 +155,13 @@ body {
 
 @media (max-width: 768px) {
   .product-grid {
-    grid-template-columns: 1fr; /* 1 column for smaller tablets and phones */
+    grid-template-columns: 1fr 1fr; /* 2 columns on phones */
+    grid-template-rows: auto; /* Automatically adjust rows based on content */
+    gap: 15px; /* Adjust gap between items */
+  }
+
+  .product-card {
+    margin-bottom: 15px; /* Spacing between items in the grid */
   }
 
   .header {
